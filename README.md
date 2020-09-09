@@ -18,3 +18,5 @@ https://www.southampton.ac.uk/~msn/book/new_demo/median/
 
 The wikipedia page for the median filter:
 https://en.wikipedia.org/wiki/Median_filter#:~:text=The%20median%20filter%20is%20a,edge%20detection%20on%20an%20image).
+
+I also added an example pgm p2 image with noise
