@@ -1,8 +1,8 @@
 # Median-filter
-Basically console aplication homework from data structures class. It is median filter for pgm 2 images that uses two different sorting algorithms (bubble and merge) to test their speed for different images and input sizes. 
+Basically console aplication homework from data structures class. It is a median filter for PGM P2 images that uses two different sorting algorithms (bubble and merge) to test their speed for different images and input sizes. 
 
 The input for the console is the following:
--The sorting type (for example: merge)
+- The sorting type (for example: merge)
 - The size of the window around the pixel( for example: 3 for 3x3 window size). Must be an odd number
 - Name of the source image that needs to be filtered. Full math must be specified (For example: C:\Users\user\Desktop\source_image.pgm)
 - You will also need to create a destination pgm image before starting the program to write the filtered image to and specifity it's name in the program after the source image. (For example: C:\Users\user\Desktop\destination_image.pgm )
