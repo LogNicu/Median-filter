@@ -29,9 +29,10 @@ int main() {
         std::cerr << "The window size must be an odd number\n";
         exit(1);
     }
-
+    //Note: when specifying the input image or output image name, the full path must be specified
+    // if the images are not in the project's folder;
     std::string tempStrForInputs;
-    std::cout << "Choose the input image (the full file path must be specified: i.e: C:\\Users\\user\\Desktop\\inputImage.pgm): ";
+    std::cout << "Choose the input image ";
     std::cin >> tempStrForInputs;
 
     std::ifstream inputImage;
@@ -41,15 +42,16 @@ int main() {
         std::cerr << "Unable to open the input image\n";
         exit(1);
     }
-    std::cout << "Choose the output image (the full file path must be specified: i.e: C:\\Users\\user\\Desktop\\outputImage.pgm): ";
+    std::cout << "Choose the output image" ;
     std::cin >> tempStrForInputs;
 
-    std::ofstream outputImage;
+    std::fstream outputImage;
 
-    outputImage.open(tempStrForInputs);
+    outputImage.open(tempStrForInputs,std::fstream::in | std::fstream::app);
     if ( !outputImage ) {
-        std::cerr << "Unable to open the output image\n";
-        exit(1);
+        std::cout << "File does not exist. Creating new file..";
+        outputImage.open(tempStrForInputs,std::fstream::in | std::fstream::trunc);
+
     }
     std::cout << "Please wait\n";
 
@@ -81,12 +83,13 @@ int main() {
 
         for(uint32_t j = 0 ; j < width ; j++) {
             inputImage >> tempInt;
-            sortingData[i].push_back( tempInt );
+            sortingData[i].emplace_back(tempInt) ;
         }
 
     }
 
     //applying the filter and writing to the output image
+    // so many nested for loops :(
     for(int i=0 ; i < height ; i++ ) { //could most likely be improved
 
         for(int j=0 ; j < width ; j++) {
@@ -117,7 +120,8 @@ int main() {
                     }
 //                  tempJ=0+(j1>=width)*(width-1)+j1*(j1>=0&&j1<width);    this works too
 
-                    tempSorter.push_back( sortingData[tempI][tempJ] );
+                    tempSorter.emplace_back( sortingData[tempI][tempJ] );
+                   // std::cout<<tempSorter.size()<<"\n";
                 }
             }
 
@@ -136,7 +140,7 @@ int main() {
         outputImage << "\n";
 
     }
-    
+
     inputImage.close();
     outputImage.close();
     std::cout << "Finished !\n";
