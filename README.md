@@ -6,8 +6,18 @@ The input for the console is the following:
 - The sorting type (for example: merge)
 - The size of the window around the pixel( for example: 3 for 3x3 window size). Must be an odd number
 - Name of the source image that needs to be filtered. 
-- You will also need to create a destination pgm image before starting the program to write the filtered image to and specifity it's name in the program after the source image. 
-   The full path of the file must be specified if the images are not in the project's folder or if you use the executable (i.e: C:\Users\user\Desktop\source_image.pgm) 
+- Name of the image that will be created.
+
+Note: The executable and the input image must be in the same folder , if they aren't, the full path of the images must be specified.
+        Example input if the exe and the input image are on the desktop:
+        >>merge
+        >>3
+        >>inputImage.pgm
+        >>outputImage.pgm
+        
+-The output image will be created in the same folder. You can also create an empty image beforehand wherever you want and select it as the output        
+        
+
 A median filter is a technique for removing noise from images or signals.
 A PGM (portable gray map) image is a very simple format for representing black and white images. In pgm p2 images the value of each individual pixel as well as other details are written as text in the file.
 
