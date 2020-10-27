@@ -40,9 +40,10 @@ int main() {
     inputImage.open(tempStrForInputs);
     if (!inputImage) {
         std::cerr << "Unable to open the input image\n";
+        getchar();
         exit(1);
     }
-    std::cout << "Choose the output image" ;
+    std::cout << "Choose the output image: " ;
     std::cin >> tempStrForInputs;
 
     std::fstream outputImage;
