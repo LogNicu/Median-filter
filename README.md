@@ -11,8 +11,11 @@ The input for the console is the following:
 Note: The executable and the input image must be in the same folder , if they aren't, the full path of the images must be specified.
         Example input if the exe and the input image are on the desktop:
         >>merge
+        
         >>3
+        
         >>inputImage.pgm
+        
         >>outputImage.pgm
         
 -The output image will be created in the same folder. You can also create an empty image beforehand wherever you want and select it as the output        
