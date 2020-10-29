@@ -67,6 +67,7 @@ int main() {
         }
     }  catch (const std::ifstream::failure& e) {
         std::cout << "Exception opening/reading file\n"<<e.what();
+        return 0;
     }
 
     std::cout << "Please wait \n";
