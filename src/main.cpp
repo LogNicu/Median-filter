@@ -16,21 +16,30 @@ int main() {
     std::string sortType;
     std::cout<<"Choose the sorting algorithm (merge/bubble): ";
     std::cin>>sortType;
-    if( sortType != "merge" && sortType != "bubble") {
-        std::cerr << "Invalid sorting method\n";
-        exit(1);
+
+    while (sortType != "merge" && sortType != "bubble") {
+        std::cout<<"Invalid sorting method. Choose either \"merge\" or \"bubble\".\n You can try again or  else enter enter \"exit\"  ";
+        std::cin>>sortType;
+        if(sortType=="exit") {
+            return 0;
+        }
     }
 
     int sortingWindowSize;
     std::cout << "Choose the size of the sorting window (must be an odd number): ";
     std::cin >> sortingWindowSize;
 
-    if(sortingWindowSize % 2 == 0) {
-        std::cerr << "The window size must be an odd number\n";
-        exit(1);
+    while(sortingWindowSize % 2 == 0) {
+
+        std::cout << "The window size must be an odd number. You can try again, else enter enter \"-1\" \n";
+        std::cin>>sortingWindowSize;
+        if(sortingWindowSize==-1) {
+            return 0;
+        }
+
     }
     //Note: when specifying the input image or output image name, the full path must be specified
-    // if the images are not in the project's folder;
+    //  if the executable and the images are not in the same folder;
     std::string tempStrForInputs;
     std::cout << "Choose the input image ";
     std::cin >> tempStrForInputs;
@@ -39,22 +48,28 @@ int main() {
 
     inputImage.open(tempStrForInputs);
     if (!inputImage) {
-        std::cerr << "Unable to open the input image\n";
-        getchar();
-        exit(1);
+        std::cout << "Unable to open the input image. Enter any key to exit \n";
+        std::cin.ignore();
+        std::cin.get();
+       return 0;
     }
     std::cout << "Choose the output image: " ;
     std::cin >> tempStrForInputs;
 
-    std::fstream outputImage;
+        std::fstream outputImage;
+    try {
+        outputImage.open(tempStrForInputs, std::fstream::in | std::fstream::app);
 
-    outputImage.open(tempStrForInputs,std::fstream::in | std::fstream::app);
-    if ( !outputImage ) {
-        std::cout << "File does not exist. Creating new file..";
-        outputImage.open(tempStrForInputs,std::fstream::in | std::fstream::trunc);
+        if (!outputImage) {
+            std::cout << "File does not exist. Creating new file..";
+            outputImage.open(tempStrForInputs, std::fstream::in | std::fstream::trunc);
 
+        }
+    }  catch (const std::ifstream::failure& e) {
+        std::cout << "Exception opening/reading file\n"<<e.what();
     }
-    std::cout << "Please wait\n";
+
+    std::cout << "Please wait \n";
 
     //passing the file type, comments and window's width and height to the output image
     std::string widthHeightTemp;
@@ -77,17 +92,19 @@ int main() {
 
     //filtering the image
 
-    std::vector< std::vector< int > > sortingData( height );
+    std::vector< std::vector< int > > sortingData( height, std::vector<int> (width) );
     //getting all pixel values
-    int tempInt;
+
     for(int i=0 ; i < height ; i++) {
 
         for(uint32_t j = 0 ; j < width ; j++) {
+            int tempInt;
             inputImage >> tempInt;
-            sortingData[i].emplace_back(tempInt) ;
+            sortingData[i][j]=tempInt ;
         }
 
     }
+
 
     //applying the filter and writing to the output image
     // so many nested for loops :(
@@ -122,7 +139,7 @@ int main() {
 //                  tempJ=0+(j1>=width)*(width-1)+j1*(j1>=0&&j1<width);    this works too
 
                     tempSorter.emplace_back( sortingData[tempI][tempJ] );
-                   // std::cout<<tempSorter.size()<<"\n";
+
                 }
             }
 
@@ -144,8 +161,10 @@ int main() {
 
     inputImage.close();
     outputImage.close();
-    std::cout << "Finished !\n";
+    std::cout << "Finished ! Enter any key to exit \n";
 
+    std::cin.ignore();
+    std::cin.get();
     return 0;
 }
 
