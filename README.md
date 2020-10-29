@@ -10,6 +10,7 @@ The input for the console is the following:
 
 Note: The executable and the input image must be in the same folder , if they aren't, the full path of the images must be specified.
         Example input if the exe and the input image are on the desktop:
+        
         >>merge
         
         >>3
